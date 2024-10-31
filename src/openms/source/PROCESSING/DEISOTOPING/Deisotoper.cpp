@@ -337,10 +337,10 @@ void Deisotoper::deisotopeAndSingleCharge(MSSpectrum& spec,
                       bool make_single_charged,
                       bool annotate_charge,
                       bool annotate_iso_peak_count,
-		      bool annotate_features,
                       bool use_decreasing_model,
                       unsigned int start_intensity_check,
-                      bool add_up_intensity)
+                      bool add_up_intensity,
+                      bool annotate_features)
 {
   OPENMS_PRECONDITION(spec.isSorted(), "Spectrum must be sorted.");
 
@@ -384,11 +384,12 @@ void Deisotoper::deisotopeAndSingleCharge(MSSpectrum& spec,
     spec.getIntegerDataArrays().back().setName("iso_peak_count");
     iso_peak_count_index = spec.getIntegerDataArrays().size()-1;
   }
+
   if (annotate_features)
   {
+    spec.getIntegerDataArrays().resize(spec.getIntegerDataArrays().size() + 1);
     spec.getIntegerDataArrays().back().setName("feature_number");
-    feature_number_dataarray_index = spec.getIntegerDataArrays().size() - 1;
-    spec.getIntegerDataArrays()[feature_number_dataarray_index].swap(features);  
+    feature_number_dataarray_index = spec.getIntegerDataArrays().size() - 1;  
   }
 
   // during discovery phase, work on a constant reference (just to make sure we do not modify spec)
@@ -491,6 +492,11 @@ void Deisotoper::deisotopeAndSingleCharge(MSSpectrum& spec,
     }
   }
 
+  if (annotate_features)
+  {
+    spec.getIntegerDataArrays()[feature_number_dataarray_index].swap(features);
+  }
+  
   // apply changes, i.e. select the indices which should survive
   std::vector<Size> select_idx;
 
