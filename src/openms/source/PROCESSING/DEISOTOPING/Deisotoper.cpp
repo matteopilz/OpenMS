@@ -493,8 +493,8 @@ void Deisotoper::deisotopeAndSingleCharge(MSSpectrum& spec,
   }
 
   if (annotate_features)
-  {
-    spec.getIntegerDataArrays()[feature_number_dataarray_index].swap(features);
+  { // assign feature indices without copy
+    spec.getIntegerDataArrays()[feature_number_dataarray_index].std::vector<Int>::swap(features);
   }
   
   // apply changes, i.e. select the indices which should survive
