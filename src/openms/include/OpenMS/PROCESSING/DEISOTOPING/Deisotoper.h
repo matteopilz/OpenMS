@@ -125,7 +125,8 @@ class OPENMS_DLLAPI Deisotoper
                                          bool annotate_iso_peak_count = false,
                                          bool use_decreasing_model = true,
                                          unsigned int start_intensity_check = 2,
-                                         bool add_up_intensity = false);
+                                         bool add_up_intensity = false,
+                                         bool annotate_features = false);
 };
 
 }

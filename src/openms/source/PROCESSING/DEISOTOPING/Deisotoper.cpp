@@ -366,8 +366,8 @@ void Deisotoper::deisotopeAndSingleCharge(MSSpectrum& spec,
     return; 
   }
 
-  Size charge_index(0);
-  Size iso_peak_count_index(0);
+  Size charge_index{};
+  Size iso_peak_count_index{}, feature_number_dataarray_index{};
 
   // reserve integer data array to store charge of peaks
   if (annotate_charge)
